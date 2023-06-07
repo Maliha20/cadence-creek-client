@@ -7,7 +7,13 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="hover:text-blue-900 ">
-            <Link>Item 3</Link>
+            <Link>Classes</Link>
+          </li>
+          <li className="hover:text-blue-900 ">
+            <Link>Instructors</Link>
+          </li>
+          <li className="hover:text-blue-900 ">
+            <Link>Dashboard</Link>
           </li>
     </>
   return (
@@ -48,7 +54,8 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end md:mr-5 md:mt-12">
-        <a className="btn btn-ghost px-1 md:px-5 text-white bg-blue-900">Login</a>
+
+        <Link to="/login"><a className="btn btn-ghost px-1 md:px-5 text-white bg-blue-900">Login</a></Link>
       </div>
     </div>
   );
