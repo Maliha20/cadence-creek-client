@@ -1,24 +1,35 @@
-import React from "react";
-import logo from '../../../assets/logo.png'
+import React, { useContext } from "react";
+import logo from "../../../assets/logo.png";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Providers/AuthProvider";
 const Navbar = () => {
-    const navLists = <>
-           <li className="hover:text-blue-900 ">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="hover:text-blue-900 ">
-            <Link>Classes</Link>
-          </li>
-          <li className="hover:text-blue-900 ">
-            <Link>Instructors</Link>
-          </li>
-          <li className="hover:text-blue-900 ">
-            <Link>Dashboard</Link>
-          </li>
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut()
+      .then()
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const navLists = (
+    <>
+      <li className="hover:text-blue-900 ">
+        <Link to="/">Home</Link>
+      </li>
+      <li className="hover:text-blue-900 ">
+        <Link>Classes</Link>
+      </li>
+      <li className="hover:text-blue-900 ">
+        <Link>Instructors</Link>
+      </li>
+      <li className="hover:text-blue-900 ">
+        <Link>Dashboard</Link>
+      </li>
     </>
+  );
   return (
-    <div className="navbar bg-blue-400/70">
-      <div className="navbar-start">
+    <div className="navbar md:flex items-center  bg-blue-400/70">
+      <div className="navbar-start mt-0">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
@@ -40,22 +51,44 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 p-2 shadow rounded-box w-52"
           >
-          {navLists}
-          
+            {navLists}
           </ul>
         </div>
         <a className="btn btn-ghost normal-case text-xl">
-            <img className="md:w-56 w-36 h-28 md:h-36 md:mt-4" src={logo} alt="" />
+          <img
+            className="md:w-56 w-36 h-28 md:h-36"
+            src={logo}
+            alt=""
+          />
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 text-2xl text-white font-semibold md:mt-12 ">
-        {navLists}
+          {navLists}
         </ul>
       </div>
-      <div className="navbar-end md:mr-5 md:mt-12">
-
-        <Link to="/login"><p className="btn btn-ghost px-1 md:px-5 text-white bg-blue-900">Login</p></Link>
+      <div className="navbar-end">
+        {user ? (
+          <details className="dropdown md:mr-5 md:mt-12">
+          <summary className=" btn btn-ghost">
+          <img title={user.displayName} className="w-20 h-20 rounded-full border-8 border-blue-950" src={user.photoURL} alt="" />
+          </summary>
+          <ul className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+            <li><a>
+             <p onClick={handleLogout} className="btn btn-ghost px-1 md:px-5 text-white bg-blue-900">
+              Logout
+            </p>
+              </a></li>
+            <li><a>Item 2</a></li>
+          </ul>
+        </details>
+        ) : (
+          <Link to="/login">
+            <p className="btn btn-ghost md:mr-5 md:mt-12 px-1 md:px-5 text-white bg-blue-900">
+              Login
+            </p>
+          </Link>
+        )}
       </div>
     </div>
   );

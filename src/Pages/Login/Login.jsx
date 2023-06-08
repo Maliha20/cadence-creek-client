@@ -5,7 +5,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 const Login = () => {
-  const {user, userSignIn, GoogleSignIn} = useContext(AuthContext)
+  const {userSignIn, GoogleSignIn} = useContext(AuthContext)
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [display, setDisplay] = useState(false);
@@ -35,7 +35,6 @@ const Login = () => {
   };
   const handleGoogleLogin=()=>{
     GoogleSignIn()
-    googleLogin()
     .then(result=>{
       const googleUser =result.user;
       console.log(googleUser)
