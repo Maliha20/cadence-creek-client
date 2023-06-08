@@ -3,6 +3,7 @@ import loginLogo from "../../assets/loginpic.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 const Login = () => {
   const {user, userSignIn, GoogleSignIn} = useContext(AuthContext)
   const [error, setError] = useState("");
@@ -11,21 +12,17 @@ const Login = () => {
   // const navigate = useNavigate()
   // const location = useLocation();
   // const from = location?.state?.from?.pathname || '/'
-
-  const handleLogIn =e=>{
-  
-    e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log(email, password);
-    setError("");
-    setSuccess("");
-    userSignIn(email,password)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    userSignIn(data.email, data.password)
     .then(result=>{
       const loggedUser = result.user;
       console.log(loggedUser)
-      // navigate(from,{replace : true})
+      navigate(from,{replace : true})
       setSuccess('You have successfully signed in')
       setError("")
       form.reset()
@@ -35,9 +32,10 @@ const Login = () => {
       setError(error.message)
       setSuccess("")
     }) 
-   }
-   const handleGoogleLogin =()=>{
+  };
+  const handleGoogleLogin=()=>{
     GoogleSignIn()
+    googleLogin()
     .then(result=>{
       const googleUser =result.user;
       console.log(googleUser)
@@ -51,8 +49,6 @@ const Login = () => {
       setSuccess('')
     })
   }
- 
-
   return (
     <div className="my-16 hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row rounded-lg  shadow-2xl  shadow-blue-500/50">
@@ -62,17 +58,18 @@ const Login = () => {
         </div>
         <div className="card flex-shrink-0 md:w-1/2 w-full">
           <div className="card-body">
-            <form onSubmit={handleLogIn}>
+            <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
-                type="text"
+                type="email"
                 placeholder="email"
-                name="email"
+                {...register("email", { required: true })}
                 className="input input-bordered"
               />
+                {errors.email && <span className="text-red-600">Password is required</span>}
             </div>
             <div className="form-control">
               <label className="label">
@@ -81,9 +78,10 @@ const Login = () => {
               <input
                 type={display ? "text" : "password"}
                 placeholder="password"
-                name="password"
+                {...register("password", { required: true })}
                 className="input input-bordered"
               />
+              {errors.password && <span className="text-red-600">Password is required</span>}
                <p onClick={() => setDisplay(!display)}>
                   {display ? (
                     <FaEyeSlash className="text-blue-950"></FaEyeSlash>
