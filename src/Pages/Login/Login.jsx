@@ -67,6 +67,7 @@ const Login = () => {
                 placeholder="email"
                 {...register("email", { required: true })}
                 className="input input-bordered"
+                role="alert"
               />
                 {errors.email && <span className="text-red-600">Password is required</span>}
             </div>

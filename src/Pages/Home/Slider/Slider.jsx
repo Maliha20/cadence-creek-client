@@ -9,7 +9,7 @@ import img4 from '../../../assets/image4.jpeg'
 import img5 from '../../../assets/image5.jpg'
 const Slider = () => {
     return (
-        <div className='text-center my-28'>
+        <div className='shadow-blue-500/50 rounded shadow-2xl text-center my-28 mx-auto container'>
               <Carousel>
                 <div>
                     <img src={img1} />
