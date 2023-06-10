@@ -1,16 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginLogo from "../../assets/loginpic.png";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Register = () => {
-  const { createUser, profileUpdate, profileInfo,GoogleSignIn } = useContext(AuthContext);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const { createUser, profileUpdate, profileInfo } = useContext(AuthContext);
   const [display, setDisplay] = useState(false);
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -19,31 +18,34 @@ const Register = () => {
   } = useForm();
   const onSubmit = (data) =>{
     const { email, password, name,photo } = data;
+   
     createUser(email, password, name, photo)
     .then(result=>{
       const registeredUser = result.user;
       console.log(registeredUser)
-      profileUpdate(name, photo).then(() => {
+      profileUpdate(name, photo)
+      .then(() => {
+        const user ={name:name,email:email, password:password,photo:photo  }
+        fetch("http://localhost:5000/users",{
+          method:"POST",
+          headers:{
+            "content-type":"application/json"
+          },
+          body: JSON.stringify(user)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          if(data.insertedId){
+            navigate("/login")
+          }
+        })
         profileInfo(email, name, photo);
+        
       });
+      
     })
   }
-const handleGoogleLogin=()=>{
-  GoogleSignIn()
-  googleLogin()
-  .then(result=>{
-    const googleUser =result.user;
-    console.log(googleUser)
-    // navigate(from,{replace : true})
-    setSuccess('successfuly logged in')
-    setError('')
-  })
-  .catch(error=>{
-    console.error()
-    setError(error.message)
-    setSuccess('')
-  })
-}
+
   return (
     <div className=" my-16 hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row rounded-lg  shadow-2xl  shadow-blue-500/50">
@@ -74,6 +76,7 @@ const handleGoogleLogin=()=>{
                   placeholder="Name"
                   {...register("name")}
                   className="input input-bordered"
+                  
                 />
               </div>
               <div className="form-control">
@@ -99,6 +102,7 @@ const handleGoogleLogin=()=>{
                 <select
                   className="input input-bordered w-full p-1 rounded-md"
                   {...register("gender")}
+                  role="alert"
                 >
                   <option value="female">Female</option>
                   <option value="male">Male</option>
@@ -118,7 +122,8 @@ const handleGoogleLogin=()=>{
                     pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/,
                   })}
                   className="input input-bordered"
-                  required
+          
+                  role="alert"
                 />
                 {errors.password?.type === "required" && (
                   <span className="text-red-600"  role="alert">Password is required</span>
@@ -154,13 +159,13 @@ const handleGoogleLogin=()=>{
                 <input  className="btn btn-primary" type="submit" value="Sign Up" />
                 
               </div>
-                <p className="text-lg">Login with<button onClick={handleGoogleLogin} className="btn btn-link text-blue-700">Google</button></p>
               <p className="text-lg">
                 Already Have An Account?{" "}
                 <Link className="text-blue-700" to="/login">
                   Login
                 </Link>
               </p>
+              <SocialLogin></SocialLogin>
             </form>
           </div>
         </div>

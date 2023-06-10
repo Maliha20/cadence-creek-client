@@ -35,14 +35,17 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
       <li className="hover:text-blue-900 ">
-        <Link>Classes</Link>
+        <Link to="/classes" >Classes</Link>
       </li>
       <li className="hover:text-blue-900 ">
-        <Link>Instructors</Link>
+        <Link to="/instructors">Instructors</Link>
       </li>
-      <li className="hover:text-blue-900 ">
-        <Link>Dashboard</Link>
+      {
+        user &&
+         <li className="hover:text-blue-900 ">
+        <Link to="/dashboard">Dashboard</Link>
       </li>
+      }
     </>
   );
   return (
@@ -104,12 +107,10 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <Link>DashBoard</Link>
-              </li>
-              <li>
                 <label className=" swap swap-rotate">
             
-                  <input type="checkbox" onChange={handleToggle} />
+                  <input type="checkbox" defaultChecked={theme === 'light'}
+                    onChange={handleToggle} />
                   
                   {/* sun icon */}
                   <svg

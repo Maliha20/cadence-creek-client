@@ -6,6 +6,12 @@ import Home from "../Pages/Home/Home/Home";
 import LoginLayout from "../Layouts/LoginLayout";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import Instructors from "../Pages/Instructors/Instructors";
+import Classes from "../Pages/Classes/Classes";
+import Dashboard from "../Layouts/Dashboard";
+import PrivateRoute from "./PrivateRoute";
+import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
+import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 
 
 
@@ -17,6 +23,14 @@ const router = createBrowserRouter([
         {
             path: "/",
             element:<Home></Home>
+        },
+        {
+            path: "/instructors",
+            element:<PrivateRoute><Instructors></Instructors></PrivateRoute>
+        },
+        {
+            path: "/classes",
+            element:<Classes></Classes>
         }
       ]
     },
@@ -31,6 +45,20 @@ const router = createBrowserRouter([
             {
                 path: "/login/register",
                 element:<Register></Register>
+            }
+        ]
+    },
+    {
+        path: "dashboard",
+        element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        children: [
+            {
+                path:'home',
+                element:<AdminHome></AdminHome>
+            },
+            {
+                path:'manageuser',
+                element:<ManageUsers></ManageUsers>
             }
         ]
     }
