@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import loginLogo from "../../assets/loginpic.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Providers/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useAuth from "../Hooks/useAuth";
 const Login = () => {
-  const {userSignIn} = useContext(AuthContext)
+  const {userSignIn} = useAuth()
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [display, setDisplay] = useState(false);
@@ -27,6 +27,7 @@ const Login = () => {
       setSuccess('You have successfully signed in')
       setError("")
       form.reset()
+      
     })
     .catch(error=>{
       console.log(error)

@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import loginLogo from "../../assets/loginpic.png";
-import { AuthContext } from "../../Providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useAuth from "../Hooks/useAuth";
 
 const Register = () => {
-  const { createUser, profileUpdate, profileInfo } = useContext(AuthContext);
+  const { createUser, profileUpdate, profileInfo } = useAuth()
   const [display, setDisplay] = useState(false);
   const navigate = useNavigate()
 
@@ -17,8 +17,8 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) =>{
-    const { email, password, name,photo } = data;
-   
+    const { email, password, name,photo} = data;
+      
     createUser(email, password, name, photo)
     .then(result=>{
       const registeredUser = result.user;
@@ -79,6 +79,7 @@ const Register = () => {
                   
                 />
               </div>
+  
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -95,20 +96,8 @@ const Register = () => {
                   </p>
                 )}
               </div>
-              <div>
-                <label className="label">
-                  <span className="label-text">Gender</span>
-                </label>
-                <select
-                  className="input input-bordered w-full p-1 rounded-md"
-                  {...register("gender")}
-                  role="alert"
-                >
-                  <option value="female">Female</option>
-                  <option value="male">Male</option>
-                  <option value="other">other</option>
-                </select>
-              </div>
+        
+         
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>

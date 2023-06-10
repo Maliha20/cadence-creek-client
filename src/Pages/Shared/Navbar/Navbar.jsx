@@ -109,7 +109,7 @@ const Navbar = () => {
               <li>
                 <label className=" swap swap-rotate">
             
-                  <input type="checkbox" defaultChecked={theme === 'light'}
+                  <input type="checkbox"
                     onChange={handleToggle} />
                   
                   {/* sun icon */}

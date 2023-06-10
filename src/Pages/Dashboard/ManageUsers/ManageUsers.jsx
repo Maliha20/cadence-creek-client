@@ -2,11 +2,22 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { FaUserLock, FaUserShield } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import useAuth from '../../Hooks/useAuth';
 const ManageUsers = () => {
-    const {data: users=[],refetch} = useQuery(['users'],async()=>{
-      const res = await fetch('http://localhost:5000/users')
-      return res.json();
-    })
+  const { loading } = useAuth();
+  const [axiosSecure] = useAxiosSecure();
+  const [disabled, setDisabled] = useState(true);
+  const { data: users = [], refetch } = useQuery(
+    ['users'],
+    async () => {
+      const res = await axiosSecure.get('/users');
+      return res.data;
+    },
+    {
+      enabled: !loading,
+    }
+  );
   
 
     const handleAdmin=(user)=>{
@@ -26,6 +37,7 @@ const ManageUsers = () => {
             timer: 1500
           })
         }
+        setDisabled(disabled)
       })
       
       
@@ -49,18 +61,20 @@ const ManageUsers = () => {
         }
       })
     }
+
     return (
         <div className='w-full container mx-auto'>
            <h2 className='my-12 text-3xl text-blue-900 text-center font-bold'>Total Users: {users.length}</h2>
            <div className="overflow-x-auto">
-  <table className="table table-zebra">
+  <table className="table table-zebra rounded">
     {/* head */}
-    <thead>
+    <thead className='bg-blue-100'>
       <tr>
         <th>#</th>
         <th>Name</th>
         <th>Email</th>
-        <th>Role</th>
+        <th>Admin</th>
+        <th>Instructor</th>
       </tr>
     </thead>
     <tbody>
@@ -74,7 +88,7 @@ const ManageUsers = () => {
          <FaUserLock></FaUserLock>Admin
         </button>}</td>
         <td>{user.role === "instructor" ? "instructor" :
-         <button onClick={()=>handleInstructor(user)} disabled ={user.role==='instructor'} className='btn btn-ghost bg-blue-100'>
+         <button onClick={()=>handleInstructor(user)} disabled ={!disabled} className='btn btn-ghost bg-blue-100'>
          <FaUserShield></FaUserShield>Instructor
         </button>}</td>
         

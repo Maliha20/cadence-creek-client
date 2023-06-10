@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 import { FaBook, FaHome, FaUser } from "react-icons/fa";
+import useAdmin from "../Pages/Hooks/useAdmin";
+import useInstructor from "../Pages/Hooks/useInstructor";
 
 const Dashboard = () => {
 
   //todo
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor()
 
   return (
     <>
@@ -28,29 +31,41 @@ const Dashboard = () => {
            {
             isAdmin ? <>
                 <li>
-              <NavLink className="text-center text-xl font-semibold text-blue-900" to="/dashboard/home"><FaHome></FaHome>Admin Home</NavLink>
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/home"><FaHome></FaHome>Admin Home</NavLink>
             </li>
               <li>
-              <NavLink className="text-center text-xl font-semibold text-blue-900" to="/dashboard/manageclass"><FaBook></FaBook>Manage Classes</NavLink>
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/manageclass"><FaBook></FaBook>Manage Classes</NavLink>
             </li>
               <li>
-              <NavLink className="text-center text-xl font-semibold text-blue-900" to="/dashboard/manageuser"><FaUser></FaUser>Manage Users</NavLink>
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/manageuser"><FaUser></FaUser>Manage Users</NavLink>
             </li>
-            </> :
+            </> 
+            : isInstructor ?
              <>
              <li>
-              <NavLink className="text-center text-xl font-semibold text-blue-900" to="/dashboard/home">
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/home">
               <FaHome></FaHome>Instructor Home</NavLink>
             </li>
-             <li>
-              <Link className="text-center text-xl font-semibold text-blue-900" to="/dashboard/addClasses">
-                <button>Add a Class</button></Link>
+            <li>
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/home">
+              <FaBook></FaBook>Add a class</NavLink>
             </li>
             </>
+            :
+            <>
+            <li>
+             <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/home">
+             <FaHome></FaHome>Student Home</NavLink>
+           </li>
+           <li>
+             <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/home">
+             <FaBook></FaBook>My Classes</NavLink>
+           </li>
+           </>
            }
             <div className="divider text-blue-900"></div>
             <li>
-              <NavLink className="text-center text-xl font-semibold text-blue-900" to="/">
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/">
               <FaHome></FaHome>Home</NavLink>
             </li>
             <div className="divider text-blue-900"></div>
