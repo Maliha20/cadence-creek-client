@@ -1,32 +1,39 @@
 import React, { useState } from "react";
 import useClasses from "../../Hooks/useClasses";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
-const ManageClasses = () => {
-  
-  const [classes] = useClasses();
-  console.log(classes);
 
+const ManageClasses = () => {
+  const [disabled, setDisabled] = useState(false)
+  const [classes] = useClasses();
+
+   const [axiosSecure, ,refetch] = useAxiosSecure()
   const handleDeny =(singleClass)=>{
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-        //   Swal.fire(
-        //     'Deleted!',
-        //     'Your file has been deleted.',
-        //     'success'
-        //   )
+  Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Update it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+      
+        axiosSecure.patch(`/classes/${singleClass._id}`)
+        .then(res=>{
+          singleClass.status = "deny"
+          console.log(res)
+          refetch()
+           setDisabled(singleClass.status === "deny")
           
          
-        }
-      })
+          
+        })
+      }
+    })
+    
   }
   return (
     <div>
@@ -82,7 +89,7 @@ const ManageClasses = () => {
                 </button>
                 </th>
               <th>
-                <button onClick={()=>handleDeny(singleClass)} className="btn btn-ghost text-md bg-red-800/30 btn-xs">Deny</button>
+                <button onClick={handleDeny(singleClass)} disabled={disabled} className="btn btn-ghost text-md bg-red-800/30 btn-xs">Deny</button>
               </th>
               <th>
                 <button className="btn btn-ghost text-md bg-blue-800/30 btn-xs">FeedBack</button>

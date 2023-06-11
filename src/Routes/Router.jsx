@@ -71,6 +71,11 @@ const router = createBrowserRouter([
             {
                 path: 'addaclass',
                 element: <InstructorRoute><AddAClass></AddAClass></InstructorRoute>
+            },
+            {
+                path: 'addaclass',
+                element: <InstructorRoute><AddAClass></AddAClass></InstructorRoute>,
+                loader:({params})=>fetch(`/addclass/${params.email}`) 
             }
         ]
     }
