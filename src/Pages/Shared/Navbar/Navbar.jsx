@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import logo from "../../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import './Navbar.css'
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme")? localStorage.getItem("theme") : "light")
@@ -49,7 +50,8 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar mb-12 md:flex items-center  bg-blue-400/70">
+    <div className="bg-img">
+      <div className="navbar pb-16 md:flex items-center bg-blue-400/70">
       <div className="navbar-start mt-0">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -75,9 +77,9 @@ const Navbar = () => {
             {navLists}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">
-          <img className="md:w-56 w-36 h-28 md:h-36" src={logo} alt="" />
-        </a>
+        
+          <img className="md:w-56 md:h-36 w-36 h-28 absolute md:top-6 md:left-6 left-1/2 top-16 transform -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0" src={logo} alt="" />
+        
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 text-2xl text-white font-semibold md:mt-12 ">
@@ -141,6 +143,7 @@ const Navbar = () => {
           </Link>
         )}
       </div>
+    </div>
     </div>
   );
 };

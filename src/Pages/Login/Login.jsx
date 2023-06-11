@@ -40,7 +40,7 @@ const Login = () => {
     <div className="my-16 hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row rounded-lg  shadow-2xl  shadow-blue-500/50">
         <div className="text-center">
-          <h1 className="text-5xl font-bold text-blue-900">Login now!</h1>
+          <h1 className="text-5xl font-bold text-blue-900 ">Login now!</h1>
           <img src={loginLogo} alt="" />
         </div>
         <div className="card flex-shrink-0 md:w-1/2 w-full">

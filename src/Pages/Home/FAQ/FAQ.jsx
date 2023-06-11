@@ -3,7 +3,7 @@ import "./FAQ.css";
 const FAQ = () => {
   return (
     <div>
-      <h2 className="my-12 text-center font-bold text-4xl text-blue-950">
+      <h2 className="my-12 text-center font-bold text-4xl text-blue-950 ">
         Frequently Asked Questions
       </h2>
       <div className="bg-img p-12 rounded-md shadow-xl shadow-blue-500/50 container space-y-2 my-12 mx-auto">

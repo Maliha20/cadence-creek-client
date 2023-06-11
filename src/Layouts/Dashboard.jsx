@@ -34,7 +34,7 @@ const Dashboard = () => {
               <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/home"><FaHome></FaHome>Admin Home</NavLink>
             </li>
               <li>
-              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/manageclass"><FaBook></FaBook>Manage Classes</NavLink>
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/manageclasses"><FaBook></FaBook>Manage Classes</NavLink>
             </li>
               <li>
               <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/manageuser"><FaUser></FaUser>Manage Users</NavLink>
