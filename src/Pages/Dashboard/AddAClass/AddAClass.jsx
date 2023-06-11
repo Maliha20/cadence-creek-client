@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import "./AddAClass.css";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const img_hosting_token = import.meta.env.VITE_img_upload_token;
@@ -51,6 +52,13 @@ const AddAClass = () => {
             console.log("A new class added", response.data);
             if (response.data.insertedId) {
               reset();
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: `${className}  has been added`,
+                showConfirmButton: false,
+                timer: 1500
+              })
             }
           });
         }
@@ -73,7 +81,7 @@ const AddAClass = () => {
             <input
               type="text"
               placeholder="Name"
-              {...register("name", { required: true })}
+              {...register("className", { required: true })}
               className="input input-bordered input-info w-full"
             />
           </div>
@@ -95,15 +103,15 @@ const AddAClass = () => {
 
         
 
-          <div className="flex gap-5 mt-5">
+          <div className="flex gap-5">
             <div className="form-control w-full ">
               <label className="label">
                 <span className="label-text font-bold">Instructor Name</span>
               </label>
               <input
                 type="text"
-                
-                {...register("instructorName", { required: true })}
+                defaultValue={user.displayName}
+                {...register("displayName", { required: true })}
                 className="input input-bordered input-info w-full"
               />
             </div>
@@ -112,6 +120,7 @@ const AddAClass = () => {
                 <span className="label-text font-bold">Instructor email</span>
               </label>
               <input
+              defaultValue={user.email}
                 type="email"
                 
                 {...register("email", { required: true })}
@@ -122,18 +131,18 @@ const AddAClass = () => {
           
           </div>
 
-          <div className="form-control  w-full ">
+          <div className="form-control w-full ">
             <label className="label">
               <span className="label-text font-bold">Available Seats</span>
             </label>
-            <textarea
+            <input
               {...register("seats", { required: true })}
               className="input input-bordered input-info w-full"
               placeholder="seats available"
               type="number"
-            ></textarea>
+            ></input>
             {errors.description?.type === "required" && (
-              <p className="text-red-600 mt-2" role="alert">
+              <p className="text-red-600" role="alert">
                 this is required
               </p>
             )}
@@ -149,7 +158,7 @@ const AddAClass = () => {
               className="input input-bordered input-info w-full"
             />
             {errors.price?.type === "required" && (
-              <p className="text-red-600 mt-2" role="alert">
+              <p className="text-red-600" role="alert">
                 Price is required
               </p>
             )}
