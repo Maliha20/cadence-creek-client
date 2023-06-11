@@ -4,7 +4,7 @@ import useAuth from '../Pages/Hooks/useAuth';
 import useAdmin from '../Pages/Hooks/useAdmin';
 
 const AdminRoute = ({children}) => {
-    const {user, loading} = useAuth
+    const {user, loading} = useAuth();
     const [isAdmin, isAdminLoading] = useAdmin()
     const location = useLocation();
     if(loading || isAdminLoading){

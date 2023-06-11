@@ -47,7 +47,7 @@ const Dashboard = () => {
               <FaHome></FaHome>Instructor Home</NavLink>
             </li>
             <li>
-              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/home">
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/addaclass">
               <FaBook></FaBook>Add a class</NavLink>
             </li>
             </>

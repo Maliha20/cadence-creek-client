@@ -17,15 +17,15 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) =>{
-    const { email, password, name,photo} = data;
-      
-    createUser(email, password, name, photo)
+    const { email, password, name,photo , role} = data;
+    console.log(data)
+    createUser(email, password, name, photo, role)
     .then(result=>{
       const registeredUser = result.user;
       console.log(registeredUser)
       profileUpdate(name, photo)
       .then(() => {
-        const user ={name:name,email:email, password:password,photo:photo  }
+        const user ={name:name,email:email, password:password,photo:photo,role:role  }
         fetch("http://localhost:5000/users",{
           method:"POST",
           headers:{
@@ -75,6 +75,19 @@ const Register = () => {
                   type="text"
                   placeholder="Name"
                   {...register("name")}
+                  className="input input-bordered"
+                  
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Role</span>
+                </label>
+                <input
+                defaultValue={"student"}
+                  type="text"
+                  placeholder="role"
+                  {...register("role")}
                   className="input input-bordered"
                   
                 />
