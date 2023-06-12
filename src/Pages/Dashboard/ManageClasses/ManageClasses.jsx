@@ -10,6 +10,7 @@ const ManageClasses = () => {
 
    const [axiosSecure, ,refetch] = useAxiosSecure()
   const handleDeny =(singleClass)=>{
+    axiosSecure.patch(`/classes/${singleClass._id}`)
   Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -20,17 +21,18 @@ const ManageClasses = () => {
       confirmButtonText: 'Yes, Update it!'
     }).then((result) => {
       if (result.isConfirmed) {
-      
-        axiosSecure.patch(`/classes/${singleClass._id}`)
-        .then(res=>{
-          singleClass.status = "deny"
-          console.log(res)
-          refetch()
-           setDisabled(singleClass.status === "deny")
-          
-         
-          
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Successful',
+          showConfirmButton: false,
+          timer: 1500
         })
+        console.log(res)
+     
+        refetch()
+        setDisabled(true)
+        
       }
     })
     
@@ -89,7 +91,7 @@ const ManageClasses = () => {
                 </button>
                 </th>
               <th>
-                <button onClick={handleDeny(singleClass)} disabled={disabled} className="btn btn-ghost text-md bg-red-800/30 btn-xs">Deny</button>
+                <button onClick={()=>handleDeny(singleClass)} disabled={disabled} className="btn btn-ghost text-md bg-red-800/30 btn-xs">Deny</button>
               </th>
               <th>
                 <button className="btn btn-ghost text-md bg-blue-800/30 btn-xs">FeedBack</button>
