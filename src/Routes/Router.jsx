@@ -16,6 +16,7 @@ import AddAClass from "../Pages/Dashboard/AddAClass/AddAClass";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
+import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
 
 
 
@@ -73,9 +74,9 @@ const router = createBrowserRouter([
                 element: <InstructorRoute><AddAClass></AddAClass></InstructorRoute>
             },
             {
-                path: 'addaclass',
-                element: <InstructorRoute><AddAClass></AddAClass></InstructorRoute>,
-                loader:({params})=>fetch(`/addclass/${params.email}`) 
+                path: 'myclasses',
+                element:<InstructorRoute><MyClasses></MyClasses></InstructorRoute>
+               
             }
         ]
     }

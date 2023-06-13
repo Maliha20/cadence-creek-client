@@ -49,6 +49,8 @@ const Dashboard = () => {
             <li>
               <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/addaclass">
               <FaBook></FaBook>Add a class</NavLink>
+              <NavLink className="text-center text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/myclasses">
+              <FaBook></FaBook>My Classes</NavLink>
             </li>
             </>
             :
