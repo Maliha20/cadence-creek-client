@@ -6,45 +6,75 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import useAuth from "../Hooks/useAuth";
 
+const img_hosting_token = import.meta.env.VITE_img_upload_token;
 const Register = () => {
-  const { createUser, profileUpdate, profileInfo } = useAuth()
+  const { createUser, profileUpdate, profileInfo } = useAuth();
   const [display, setDisplay] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) =>{
-    const { email, password, name,photo , role} = data;
-    console.log(data)
-    createUser(email, password, name, photo, role)
-    .then(result=>{
-      const registeredUser = result.user;
-      console.log(registeredUser)
-      profileUpdate(name, photo)
-      .then(() => {
-        const user ={name:name,email:email, password:password,photo:photo,role:role}
-        fetch("http://localhost:5000/users",{
-          method:"POST",
-          headers:{
-            "content-type":"application/json"
-          },
-          body: JSON.stringify(user)
-        })
-        .then(res=>res.json())
-        .then(data=>{
-          if(data.insertedId){
-            navigate("/login")
-          }
-        })
-        profileInfo(email, name, photo);
-        
-      });
-      
+
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
+
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+
+    fetch(img_hosting_url, {
+      method: "POST",
+      body: formData,
     })
-  }
+      .then((res) => res.json())
+      .then((imgResponse) => {
+        if (imgResponse.success) {
+          const imgURL = imgResponse.data.display_url;
+          const { email, password, name, role } = data;
+
+          createUser(email, password, name, imgURL, role)
+            .then((result) => {
+              const registeredUser = result.user;
+              console.log(registeredUser);
+
+              profileUpdate(name, imgURL)
+                .then(() => {
+                  const user = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    photo: imgURL,
+                    role: role,
+                  };
+
+                  fetch("http://localhost:5000/users", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(user),
+                  })
+                    .then((res) => res.json())
+                    .then((data) => {
+                      if (data.insertedId) {
+                        navigate("/login");
+                      }
+                    })
+                    
+
+                  profileInfo(email, name, imgURL);
+                })
+               
+            })
+            
+        } 
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <div className=" my-16 hero min-h-screen">
@@ -57,15 +87,19 @@ const Register = () => {
           <div className="card-body">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Photo Url</span>
-                </label>
-                <input
-                  type="url"
-                  placeholder="Insert Photo Url"
-                  {...register("photo")}
-                  className="input input-bordered"
-                />
+              <label className="label">
+                <span className="label-text font-bold">Image</span>
+              </label>
+              <input
+                {...register("image", { required: true })}
+                type="file"
+                className="file-input file-input-bordered file-input-primary w-full"
+              />
+              {errors.image?.type === "required" && (
+                <p className="text-red-600 mt-2" role="alert">
+                  insert image
+                </p>
+              )}
               </div>
               <div className="form-control">
                 <label className="label">
@@ -76,7 +110,6 @@ const Register = () => {
                   placeholder="Name"
                   {...register("name")}
                   className="input input-bordered"
-                  
                 />
               </div>
               <div className="form-control">
@@ -84,15 +117,14 @@ const Register = () => {
                   <span className="label-text">Role</span>
                 </label>
                 <input
-                defaultValue={"student"}
+                  defaultValue={"student"}
                   type="text"
                   placeholder="role"
                   {...register("role")}
                   className="input input-bordered"
-                  
                 />
               </div>
-  
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -109,14 +141,13 @@ const Register = () => {
                   </p>
                 )}
               </div>
-        
-         
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                   type={display ? "text" : "password"}
+                  type={display ? "text" : "password"}
                   placeholder="password"
                   {...register("password", {
                     required: true,
@@ -124,17 +155,20 @@ const Register = () => {
                     pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/,
                   })}
                   className="input input-bordered"
-          
                   role="alert"
                 />
                 {errors.password?.type === "required" && (
-                  <span className="text-red-600"  role="alert">Password is required</span>
+                  <span className="text-red-600" role="alert">
+                    Password is required
+                  </span>
                 )}
                 {errors.password?.type === "pattern" && (
-                  <span className="text-red-600"
-                   role="alert">Make sure password has at least one uppercase and one special character</span>
+                  <span className="text-red-600" role="alert">
+                    Make sure password has at least one uppercase and one
+                    special character
+                  </span>
                 )}
-                
+
                 <p onClick={() => setDisplay(!display)}>
                   {display ? (
                     <FaEyeSlash className="text-blue-950"></FaEyeSlash>
@@ -142,8 +176,6 @@ const Register = () => {
                     <FaEye className="text-blue-950"></FaEye>
                   )}
                 </p>
-
-
               </div>
               <div className="form-control">
                 <label className="label">
@@ -158,8 +190,11 @@ const Register = () => {
                 />
               </div>
               <div className="form-control mt-6">
-                <input  className="btn btn-primary" type="submit" value="Sign Up" />
-                
+                <input
+                  className="btn btn-primary"
+                  type="submit"
+                  value="Sign Up"
+                />
               </div>
               <p className="text-lg">
                 Already Have An Account?{" "}

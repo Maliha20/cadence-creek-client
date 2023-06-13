@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 
 const img_hosting_token = import.meta.env.VITE_img_upload_token;
-console.log(img_hosting_token);
+
 
 const AddAClass = () => {
   const { user } = useAuth();
