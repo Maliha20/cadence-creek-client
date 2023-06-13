@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+
 import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../Providers/AuthProvider';
+import useAuth from '../Pages/Hooks/useAuth';
 
 const PrivateRoute = ({children}) => {
-    const {user, loading} = useContext(AuthContext)
+    const {user, loading} = useAuth()
     const location = useLocation();
     if(loading){
         return <div className='mx-auto flex flex-col items-center justify-center space-y-4 my-auto'>

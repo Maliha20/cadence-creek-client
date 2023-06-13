@@ -17,6 +17,9 @@ import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
+import ClassbyInstructor from "../Pages/ClassesbyInstructor/ClassesbyInstructor";
+
+
 
 
 
@@ -31,12 +34,17 @@ const router = createBrowserRouter([
         },
         {
             path: "/instructors",
-            element:<PrivateRoute><Instructors></Instructors></PrivateRoute>,
-            loader:()=>fetch('http://localhost:5000/user/instructor')
-        },
+            element: <PrivateRoute><Instructors /></PrivateRoute>,
+            loader: () => fetch('http://localhost:5000/user/instructor')
+          },
+          {
+            path: "/classesbyinstructor",
+            element: <PrivateRoute><ClassbyInstructor /></PrivateRoute>
+          },
         {
             path: "/classes",
-            element:<Classes></Classes>
+            element:<Classes></Classes>,
+            loader:()=>fetch('http://localhost:5000/approvedClasses')
         }
       ]
     },

@@ -3,8 +3,8 @@ import footerLogo from '../../../assets/logo.png'
 import './Footer.css'
 const Footer = () => {
     return (
-        <div  className='bg-img'>
-          <footer className="mt-auto footer p-10 bg-blue-50/80 text-base-content">
+        <div  className='bg-img mt-auto'>
+          <footer className="footer p-10 bg-blue-50/80 text-base-content">
         <div>
        <img className="md:w-56 w-36 h-28 md:h-36 md:mt-4" src={footerLogo} alt="" />
           <p className='text-xl text-blue-950'>Cadence Creek Music School<br/>Providing reliable service since 1992</p>

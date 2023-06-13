@@ -10,7 +10,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [display, setDisplay] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || '/'
   const {
