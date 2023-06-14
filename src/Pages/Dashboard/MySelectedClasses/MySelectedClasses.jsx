@@ -7,7 +7,7 @@ const MySelectedClasses = () => {
    const {user} = useAuth()
    const [mySelectedClasses, setMySelectedClasses] = useState([])
    useEffect(() => {
-       fetch(`http://localhost:5000/carts/${user?.email}`)
+       fetch(`https://cadence-creek-server.vercel.app/carts/${user?.email}`)
          .then((res) => res.json())
          .then((data) => {
             setMySelectedClasses(data);

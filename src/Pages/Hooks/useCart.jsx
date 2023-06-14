@@ -8,7 +8,7 @@ const useCart = () => {
     queryKey: ['cart', user?.email],
     queryFn: async () => {
       if (user?.email) {
-        const res = await fetch(`http://localhost:5000/carts?email=${user.email}`);
+        const res = await fetch(`https://cadence-creek-server.vercel.app/carts?email=${user.email}`);
         return res.json();
       }
       return [];

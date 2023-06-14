@@ -44,10 +44,17 @@ const Navbar = () => {
       <li className="hover:text-blue-900 ">
         <Link to="/instructors">Instructors</Link>
       </li>
+      <Link>
+          <div className="indicator">
+            <span className="indicator-item mr-12 badge badge-secondary md:mt-12 md:px-3 px-2 ">+ {cart?.length || 0}</span>
+            <button className="btn btn-ghost px-1 md:px-5 text-white bg-blue-900"> <FaShoppingBasket className="text-lg"></FaShoppingBasket></button>
+          </div>
+        </Link>
       {user && (
         <li className="hover:text-blue-900 ">
           <Link to="/dashboard">Dashboard</Link>
         </li>
+          
       )}
     </>
   );
@@ -92,12 +99,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link>
-            <div className="indicator">
-              <span className="indicator-item mr-12 badge badge-secondary md:mt-12 md:px-3 px-2 ">+ {cart?.length || 0}</span>
-              <button className="btn btn-ghost mr-12 md:mt-12 px-1 md:px-5 text-white bg-blue-900"> <FaShoppingBasket className="text-lg"></FaShoppingBasket></button>
-            </div>
-          </Link>
+        
 
           {user ? (
             <details className="dropdown dropdown-end md:mr-5 md:mt-12">

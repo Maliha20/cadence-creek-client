@@ -6,7 +6,7 @@ const EnrolledClasses = () => {
     const {user} = useAuth()
     const [myEnrolledClasses, setMyEnrolledClasses] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/payments/${user?.email}`)
+        fetch(`https://cadence-creek-server.vercel.app/payments/${user?.email}`)
           .then((res) => res.json())
           .then((data) => {
             setMyEnrolledClasses(data);

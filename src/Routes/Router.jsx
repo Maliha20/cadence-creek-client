@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         {
             path: "/instructors",
             element: <PrivateRoute><Instructors /></PrivateRoute>,
-            loader: () => fetch('http://localhost:5000/user/instructor')
+            loader: () => fetch('https://cadence-creek-server.vercel.app/user/instructor')
           },
           {
             path: "/classesbyinstructor",
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         {
             path: "/classes",
             element:<Classes></Classes>,
-            loader:()=>fetch('http://localhost:5000/approvedClasses')
+            loader:()=>fetch('https://cadence-creek-server.vercel.app/approvedClasses')
         }
       ]
     },

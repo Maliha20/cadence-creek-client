@@ -51,7 +51,7 @@ const Register = () => {
                     role: role,
                   };
 
-                  fetch("http://localhost:5000/users", {
+                  fetch("https://cadence-creek-server.vercel.app/users", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",

@@ -7,7 +7,7 @@ const MyClasses = () => {
     const {user} = useAuth();
     const [myclasses, setMyClasses] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/classes/${user?.email}`)
+        fetch(`https://cadence-creek-server.vercel.app/classes/${user?.email}`)
           .then((res) => res.json())
           .then((data) => {
           setMyClasses(data);

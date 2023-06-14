@@ -25,7 +25,7 @@ const Class = ({ approvedClass }) => {
         seats,
         email: user?.email,
       };
-      fetch("http://localhost:5000/carts", {
+      fetch("https://cadence-creek-server.vercel.app/carts", {
         method: "POST",
         headers: {
           "content-type": "application/json",

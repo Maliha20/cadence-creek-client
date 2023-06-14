@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
 
 
-//////todo todo todo
 const ClassbyInstructor = () => {
   const { user } = useAuth()
   const [myCourses, setMyCourses] = useState([]);
 
   useEffect(() => {
   
-      fetch(`http://localhost:5000/classes/${user?.email}`)
+      fetch(`https://cadence-creek-server.vercel.app/classes/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           setMyCourses(data);

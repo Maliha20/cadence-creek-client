@@ -17,7 +17,7 @@ const SocialLogin = () => {
           console.log(googleUser)
          
           const user ={name:googleUser.displayName, email:googleUser.email, password:googleUser.password,photo:googleUser.photo  }
-          fetch("http://localhost:5000/users",{
+          fetch("https://cadence-creek-server.vercel.app/users",{
           method:"POST",
           headers:{
             "content-type":"application/json"
