@@ -18,6 +18,10 @@ import InstructorRoute from "./InstructorRoute";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
 import ClassbyInstructor from "../Pages/ClassesbyInstructor/ClassesbyInstructor";
+import StudentRoute from "./StudentRoute";
+import MyCart from "../Pages/MyCart/MyCart";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import Error from "../Pages/Error/Error";
 
 
 
@@ -27,6 +31,7 @@ const router = createBrowserRouter([
     {
       path: "/",
       element:<MainLayout></MainLayout>,
+      errorElement:<Error></Error>,
       children: [
         {
             path: "/",
@@ -51,6 +56,7 @@ const router = createBrowserRouter([
     {
         path:"/login",
         element:<LoginLayout></LoginLayout>,
+        errorElement:<Error></Error>,
         children: [
             {
                 path: "/login",
@@ -65,6 +71,7 @@ const router = createBrowserRouter([
     {
         path: "dashboard",
         element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        errorElement:<Error></Error>,
         children: [
             {
                 path:'home',
@@ -85,6 +92,16 @@ const router = createBrowserRouter([
             {
                 path: 'myclasses',
                 element:<InstructorRoute><MyClasses></MyClasses></InstructorRoute>
+               
+            },
+            {
+                path: 'myCart',
+                element:<StudentRoute><MyCart></MyCart></StudentRoute>
+               
+            },
+            {
+                path: 'payment',
+                element:<StudentRoute><Payment></Payment></StudentRoute>
                
             }
         ]

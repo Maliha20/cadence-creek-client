@@ -7,7 +7,7 @@ import useAuth from '../../Hooks/useAuth';
 const ManageUsers = () => {
   const { loading } = useAuth();
   const [axiosSecure] = useAxiosSecure();
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const { data: users = [], refetch } = useQuery(
     ['users'],
     async () => {
@@ -37,7 +37,7 @@ const ManageUsers = () => {
             timer: 1500
           })
         }
-        setDisabled(disabled)
+        setDisabled(true)
       })
       
       
@@ -84,11 +84,11 @@ const ManageUsers = () => {
         <td>{user.name}</td>
         <td>{user.email}</td>
         <td>{user.role === "admin" ? "admin" :
-         <button onClick={()=>handleAdmin(user)} disabled ={user.role==='admin'} className='btn btn-ghost bg-blue-100'>
+         <button onClick={()=>handleAdmin(user)} disable={disabled} className='btn btn-ghost bg-blue-100'>
          <FaUserLock></FaUserLock>Admin
         </button>}</td>
         <td>{user.role === "instructor" ? "instructor" :
-         <button onClick={()=>handleInstructor(user)} disabled ={!disabled} className='btn btn-ghost bg-blue-100'>
+         <button onClick={()=>handleInstructor(user)} disable ={disabled} className='btn btn-ghost bg-blue-100'>
          <FaUserShield></FaUserShield>Instructor
         </button>}</td>
         

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginLogo from "../../assets/loginpic.png";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -11,6 +11,8 @@ const Register = () => {
   const { createUser, profileUpdate, profileInfo } = useAuth();
   const [display, setDisplay] = useState(false);
   const navigate = useNavigate();
+  const location =useLocation()
+  const from = location?.state?.from?.pathname || '/'
 
   const {
     register,
@@ -59,7 +61,7 @@ const Register = () => {
                     .then((res) => res.json())
                     .then((data) => {
                       if (data.insertedId) {
-                        navigate("/login");
+                        navigate(from,{replace : true});
                       }
                     })
                     
@@ -188,6 +190,12 @@ const Register = () => {
                   {...register("confirm")}
                   className="input input-bordered"
                 />
+                   {errors.password === "confirm" && (
+                  <span className="text-red-600" role="alert">
+                    Make sure password has at least one uppercase and one
+                    special character
+                  </span>
+                )}
               </div>
               <div className="form-control mt-6">
                 <input

@@ -16,7 +16,7 @@ import img5 from '../../../assets/carousel/image5.jpg'
 
 const Slider = () => {
   return (
-    <div className="shadow-xl shadow-blue-500/50 container mx-auto my-16">
+    <div className="shadow-xl shadow-sky-600 container mx-auto my-16">
         <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
         <SwiperSlide>
         <img src={img1} alt="" />

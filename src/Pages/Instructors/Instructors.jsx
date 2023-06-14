@@ -18,8 +18,8 @@ const Instructors = () => {
             <img className="rounded-lg img-size border-8 border-sky-600/30" src={instructor.photo} alt="instructor" />
           </figure>
           <div className="card-body">
-            <h2 className="card-title text-xl font-bold text-blue-900">{instructor.name}</h2>
-            <p className="font-semibold text-sky-900 text-lg">{instructor.email}</p>
+            <h2 className="card-title text-xl font-bold text-blue-900">Instructor's Name: {instructor.name}</h2>
+            <p className="font-semibold text-sky-900 text-lg">Instructor's Email:  {instructor.email}</p>
             <div className="card-actions justify-start">
               <Link to='/classesbyinstructor'><button className="btn btn-info text-lg hover:text-blue-200 hover:bg-sky-900">See Classes</button></Link>
             </div>
