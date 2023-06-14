@@ -3,16 +3,19 @@ import useAuth from './useAuth';
 import { useQuery } from '@tanstack/react-query';
 
 const useCart = () => {
-    const {user} = useAuth();
- const { refetch, data: cart=[] }= useQuery({
+  const { user } = useAuth();
+  const { refetch, data: cart = [] } = useQuery({
     queryKey: ['cart', user?.email],
-    queryFn: async()=>{
-        const res= await fetch(`http://localhost:5000/carts?email=${user.email}`)
-        return res.json()
+    queryFn: async () => {
+      if (user?.email) {
+        const res = await fetch(`http://localhost:5000/carts?email=${user.email}`);
+        return res.json();
+      }
+      return [];
     },
-   
- })
- return [cart, refetch]
+  });
+
+  return [cart, refetch];
 };
 
 export default useCart;

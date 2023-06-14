@@ -26,7 +26,7 @@ const Login = () => {
       navigate(from,{replace : true})
       setSuccess('You have successfully signed in')
       setError("")
-      form.reset()
+      
       
     })
     .catch(error=>{

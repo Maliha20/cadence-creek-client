@@ -22,6 +22,8 @@ import StudentRoute from "./StudentRoute";
 import MyCart from "../Pages/MyCart/MyCart";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import Error from "../Pages/Error/Error";
+import MySelectedClasses from "../Pages/Dashboard/MySelectedClasses/MySelectedClasses";
+import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
 
 
 
@@ -102,6 +104,16 @@ const router = createBrowserRouter([
             {
                 path: 'payment',
                 element:<StudentRoute><Payment></Payment></StudentRoute>
+               
+            },
+            {
+                path: 'myselectedClasses',
+                element:<StudentRoute><MySelectedClasses></MySelectedClasses></StudentRoute>
+               
+            },
+            {
+                path: 'enrolled',
+                element:<StudentRoute><EnrolledClasses></EnrolledClasses></StudentRoute>
                
             }
         ]

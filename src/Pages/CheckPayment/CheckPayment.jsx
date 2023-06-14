@@ -5,7 +5,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useEffect } from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
-
+import './CheckPayment.css'
 
 const CheckPayment = ({ cart, price }) => {
   const { user } = useAuth();

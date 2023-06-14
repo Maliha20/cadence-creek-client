@@ -1,8 +1,10 @@
 import React from "react";
+import { Fade } from "react-awesome-reveal";
 import "./FAQ.css";
 const FAQ = () => {
   return (
     <div>
+      <Fade>
       <h2 className="my-12 text-center font-bold text-4xl text-blue-950 ">
         Frequently Asked Questions
       </h2>
@@ -92,6 +94,8 @@ const FAQ = () => {
           </div>
         </div>
       </div>
+    </Fade>
+      
     </div>
   );
 };

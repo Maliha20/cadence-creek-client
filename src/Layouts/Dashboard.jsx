@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { FaBook, FaHome, FaShoppingBasket, FaUser, FaWallet } from "react-icons/fa";
+import { FaBook, FaCheck, FaHome, FaShoppingBasket, FaUser, FaWallet } from "react-icons/fa";
 import useAdmin from "../Pages/Hooks/useAdmin";
 import useInstructor from "../Pages/Hooks/useInstructor";
 import useCart from "../Pages/Hooks/useCart";
@@ -68,6 +68,14 @@ const Dashboard = () => {
            <li>
              <NavLink className="text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/home">
              <FaWallet />My Payment History</NavLink>
+           </li>
+           <li>
+             <NavLink className="text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/myselectedClasses">
+             <FaBook/>My Classes</NavLink>
+           </li>
+           <li>
+             <NavLink className="text-xl font-semibold text-blue-900 hover:bg-blue-900 hover:text-blue-100" to="/dashboard/enrolled">
+             <FaCheck />My Enrolled Classes</NavLink>
            </li>
            </>
            }
